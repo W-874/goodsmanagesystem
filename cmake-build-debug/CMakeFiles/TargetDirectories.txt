@@ -1,0 +1,3 @@
+/Users/w-874/CLionProjects/goodsmanagesystem/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/w-874/CLionProjects/goodsmanagesystem/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/w-874/CLionProjects/goodsmanagesystem/cmake-build-debug/CMakeFiles/goodsmanagesystem.dir
