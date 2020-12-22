@@ -203,10 +203,20 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
         case 0:
             //尾插法插入新商品
             /* 补充代码*/
+            for (;p != NULL;p = p->next) {
+                if (p->next == NULL) {
+                    temp->data = goodsInfo;
+                    temp->next = NULL;
+                    p->next=temp;
+                }
+            }
             return true;
         case 1:
             //头插法插入新商品
             /* 补充代码*/
+            temp->data = goodsInfo;
+            temp->next = pre->next;
+            pre->next=temp;
             return true;
         default:
             //中间i号位置插入新商品，例如：输入3，应该在第二个节点后插入新节点
@@ -215,6 +225,12 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
             if (choice <= CurrentCnt+1 && choice > 0)
             {
                 /* 补充代码*/
+                for (int j = 1; j < choice - 1; ++j) {
+                    p = p->next;
+                }
+                temp->data = goodsInfo;
+                temp->next = p->next;
+                p->next=temp;
             }
             else
             {
