@@ -245,12 +245,22 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
 /**********************************************************
  * delete_item
  **********************************************************/
-bool delete_item(GoodsList *L, char* goods_id)
-{
+bool delete_item(GoodsList *L, char* goods_id) {
     GoodsList *pre = L, *p = L->next;
-    /* 补充代码*/
+    if(L==NULL)
+    {
+        printf("链表为空。\n");
+        return false;
+    }
+    else {
+        for (; p != NULL; p = p->next, pre = pre->next) {
+            if (strcmp(p->data.goods_id, goods_id) == 0) {
+                pre->next = p->next;
+                free(p);
+            }
+        }
+    }
 }
-
 
 /**********************************************************
  * search_item
@@ -259,6 +269,15 @@ GoodsList* search_item(GoodsList *L, char* goods_id)
 {
     GoodsList *p = L->next;
     /* 补充代码*/
+    for(;p!=NULL;p=p->next)
+    {
+        if(p->data.goods_id==goods_id)
+        {
+            return *p;
+        }
+    }
+    printf("商品不存在!\n");
+    //return xxx;      目前不知道这里要return什么回去，等调用函数时再分析
 }
 
 
