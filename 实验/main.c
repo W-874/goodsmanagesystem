@@ -102,7 +102,7 @@ int main(void)
                 item = read_goods_info();
                 printf("输入要修改记录的 ID：");
                 read_line(item.goods_id, 30);
-                /* 补充代码change_item调用*/
+                change_item(goodsList, item.goods_id, item);
                 break;
             case 3:
                 item = read_goods_info();
