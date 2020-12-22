@@ -119,7 +119,7 @@ int main(void)
             case 5:
                 printf("输入要查找记录的 ID：");
                 read_line(item.goods_id, 30);
-                /* 补充代码search_item调用*/
+                search_item(goodsList, item.goods_id);
                 break;
             case 6:
                 /* 补充代码save_to_file调用*/
