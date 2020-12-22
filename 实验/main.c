@@ -114,7 +114,7 @@ int main(void)
             case 4:
                 printf("输入要删除记录的 ID：");
                 read_line(item.goods_id, 30);
-                /* 补充代码delete_item调用*/
+                delete_item(goodsList, item.goods_id);
                 break;
             case 5:
                 printf("输入要查找记录的 ID：");
@@ -291,8 +291,17 @@ bool change_item(GoodsList *L, char* goods_id, GoodsInfo new_info)
 {
     GoodsList *p = L->next;
     GoodsList *ptarget = search_item(L, goods_id);
-    /* 补充代码*/
+    if(ptarget!=NULL)
+    {
+        ptarget->data=read_goods_info();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
+
 
 
 /**********************************************************
