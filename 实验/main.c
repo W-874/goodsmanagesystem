@@ -173,8 +173,8 @@ void init_list(GoodsList **L)
             /* 完成GoodsList的构建*/
             p->data=goodsInfo;
             p->next=NULL;
-            (*L)->next = p;
-            (*L)=(*L)->next;
+            r->next = p;
+            r=r->next;
             CurrentCnt++;
         }
     }
