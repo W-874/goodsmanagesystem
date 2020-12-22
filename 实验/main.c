@@ -257,8 +257,11 @@ bool delete_item(GoodsList *L, char* goods_id) {
             if (strcmp(p->data.goods_id, goods_id) == 0) {
                 pre->next = p->next;
                 free(p);
+                return true;
             }
         }
+        printf("商品不存在!\n");
+        return false;
     }
 }
 
@@ -273,11 +276,11 @@ GoodsList* search_item(GoodsList *L, char* goods_id)
     {
         if(p->data.goods_id==goods_id)
         {
-            return *p;
+            return p;
         }
     }
     printf("商品不存在!\n");
-    //return xxx;      目前不知道这里要return什么回去，等调用函数时再分析
+    return NULL;      //目前不知道这里要return什么回去，等调用函数时再分析
 }
 
 
