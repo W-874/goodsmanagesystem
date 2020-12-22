@@ -97,7 +97,7 @@ int main(void)
         switch (choice)
         {
             case 1:
-                /* 补充代码*/
+                output_all_items(goodsList);
             case 2:
                 item = read_goods_info();
                 printf("输入要修改记录的 ID：");
@@ -109,7 +109,7 @@ int main(void)
                 int pos;
                 printf("输入数字表明你要插入的商品位置：0.商品列表尾部 1.商品列表头部 i.商品列表中间第i号位置\n");
                 scanf("%d", &pos);
-                /* 补充代码insert_item调用*/
+                insert_item(goodsList, item, pos);
                 break;
             case 4:
                 printf("输入要删除记录的 ID：");
