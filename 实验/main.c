@@ -312,7 +312,7 @@ void output_one_item(GoodsList *p)
     /* 补充代码*/
 }
 
-/**********************************************************
+/**********************************************************x
  * output_all_items
  **********************************************************/
 void output_all_items(GoodsList *L)
@@ -363,7 +363,11 @@ int save_to_file(GoodsList *L)
     while (p != NULL)
     {
         fprintf(fp, "%s\t", p->data.goods_id);
-        /* 仿写fprintf完成goodsInfo其他部分的内容*/
+        fprintf(fp,"%s\t",p->data.goods_name);
+        fprintf(fp,"%d\t",p->data.goods_price);
+        fprintf(fp,"%s\t",p->data.goods_discount);
+        fprintf(fp,"%d\t",p->data.goods_amount);
+        fprintf(fp,"%d\t",p->data.goods_remain);
         p = p->next;
         save_count++;
     }
