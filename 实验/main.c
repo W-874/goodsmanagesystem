@@ -122,7 +122,7 @@ int main(void)
                 search_item(goodsList, item.goods_id);
                 break;
             case 6:
-                /* 补充代码save_to_file调用*/
+                save_to_file(goodsList);
                 printf("您已经存盘并退出超市商品管理系统!\n");
                 return 0;
             case 7:
