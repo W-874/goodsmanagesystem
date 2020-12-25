@@ -126,7 +126,7 @@ int main(void)
                 printf("您已经存盘并退出超市商品管理系统!\n");
                 return 0;
             case 7:
-                /* 补充代码bubble_sort调用*/
+                bubble_sort(goodsList);
                 break;
             case 8:
                 /* 补充代码destory_list_and_file调用*/
