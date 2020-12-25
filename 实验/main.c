@@ -379,27 +379,27 @@ int save_to_file(GoodsList *L)
 /**********************************************************
  * bubble_sort
  **********************************************************/
-void bubble_sort(GoodsList *L)
-{
-    GoodsList *p;
+void bubble_sort(GoodsList *L) {
+    GoodsList *p,*t,*prev;
     GoodsInfo temp;
     int n = CurrentCnt;
     int i, j;
 
     if (L == NULL || L->next == NULL)
-    {
         printf("当前链表中没有商品\n");
-    }
-    for (j = 1; j < n; ++j)
-    {
+    for (j = 1; j < n; ++j) {
         p = L->next;
-        for (i = 0; i < n - j; ++i)
-        {
-            if (p->data.goods_price > p->next->data.goods_price)
-            {
-                /* 补充代码*/
+        prev=L;
+        for (i = 0; i < n - j; ++i) {
+            if (p->data.goods_price > p->next->data.goods_price) {
+                t=prev;
+                prev->next=p->next;
+                p->next=p->next->next;
+                p->next->next=t->next;
+                free(t);
             }
             p = p->next;
+            prev=prev->next;
         }
     }
 }
