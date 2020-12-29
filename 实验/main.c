@@ -129,11 +129,11 @@ int main(void)
                 bubble_sort(goodsList);
                 break;
             case 8:
-                /* 补充代码destory_list_and_file调用*/
+                destory_list_and_file(&goodsList);
                 printf("您已经删除商品文件内容以及链表内容!\n");
                 break;
             default:
-                /* 补充代码destory_lis调用*/
+                destory_list(&goodsList);
                 printf("您已经退出超市商品管理系统!\n");
                 return 0;
         }
