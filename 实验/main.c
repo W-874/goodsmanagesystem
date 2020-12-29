@@ -331,7 +331,12 @@ void destory_list(GoodsList **L)
         return;
     }
     GoodsList *pre = *L, *p = (*L)->next;
-    /* 补充代码*/
+    while (p != NULL){
+        pre -> next = p -> next;
+        free(p);
+        p=pre -> next;
+    }
+    free(*L);
 }
 
 /**********************************************************
@@ -340,7 +345,7 @@ void destory_list(GoodsList **L)
 
 void destory_list_and_file(GoodsList **L)
 {
-    /* 补充代码：调用destory_list*/
+    destory_list(L);
     remove(GOODS_FILE_NAME);
 }
 /**********************************************************
