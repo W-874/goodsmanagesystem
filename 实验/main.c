@@ -119,7 +119,7 @@ int main(void)
             case 5:
                 printf("输入要查找记录的 ID：");
                 read_line(item.goods_id, 30);
-                search_item(goodsList, item.goods_id);
+                output_one_item(search_item(goodsList, item.goods_id));
                 break;
             case 6:
                 save_to_file(goodsList);
@@ -221,7 +221,7 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
         default:
             //中间i号位置插入新商品，例如：输入3，应该在第二个节点后插入新节点
             // CurrentCnt 改为 CurrentCnt+1，因为当 CurrentCnt 为2时，链表中有两个记录，
-            // 此时输入3，即 choise为 3，表示在第二条记录后插入数据，新记录成为第3条数据
+            // 此时输入3，即 choice为 3，表示在第二条记录后插入数据，新记录成为第3条数据
             if (choice <= CurrentCnt+1 && choice > 0)
             {
                 /* 补充代码*/
@@ -231,6 +231,7 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
                 temp->data = goodsInfo;
                 temp->next = p->next;
                 p->next=temp;
+                return true;
             }
             else
             {
