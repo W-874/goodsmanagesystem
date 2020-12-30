@@ -6,11 +6,9 @@
 #include <ctype.h>
 
 
-#define MAX 100
 #define GOODS_FILE_NAME "goodsinfo.txt"
 #define MAX_ID_LEN 30
 #define MAX_NAME_LEN 30
-#define MAX_PRICE_LEN 30
 #define MAX_DISCOUNT_LEN 30
 
 
@@ -216,7 +214,7 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
             /* 补充代码*/
             temp->data = goodsInfo;
             temp->next = pre->next;
-            pre->next=temp;
+            pre->next = temp;
             return true;
         default:
             //中间i号位置插入新商品，例如：输入3，应该在第二个节点后插入新节点
@@ -225,7 +223,8 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
             if (choice <= CurrentCnt+1 && choice > 0)
             {
                 /* 补充代码*/
-                for (int j = 1; j < choice - 1; ++j) {
+                i = choice - 1;
+                for (int j = 1; j < i; ++j) {
                     p = p->next;
                 }
                 temp->data = goodsInfo;
@@ -305,22 +304,33 @@ bool change_item(GoodsList *L, char* goods_id, GoodsInfo new_info)
 
 
 
-/**********************************************************
- *output_one_item
- **********************************************************/
 void output_one_item(GoodsList *p)
 {
-    /* 补充代码*/
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("ID:%-10s 商品名称:%-10s 商品价格:%-10d 商品折扣:%-10s 商品数量:%-10d 商品余量:%-10d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+
 }
 
-/**********************************************************x
- * output_all_items
- **********************************************************/
+
+
 void output_all_items(GoodsList *L)
 {
-    /* 补充代码*/
-}
+    GoodsList *p = L;
+    if (p == NULL) {
+        printf("无商品记录!\n");
+    }
+    else {
+        printf("显示所有商品:\n");
+        for (; p != NULL ; p = p -> next)
+        {
+            printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+            printf("ID:%-10s 商品名称:%-10s 商品价格:%-10d 商品折扣:%-10s 商品数量:%-10d 商品余量:%-10d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
+        }
+        printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
+    }
+}
 
 /**********************************************************
  * destory_list
