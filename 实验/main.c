@@ -98,7 +98,6 @@ int main(void)
                 output_all_items(goodsList);
                 break;
             case 2:
-                item = read_goods_info();
                 printf("输入要修改记录的 ID：");
                 read_line(item.goods_id, 30);
                 change_item(goodsList, item.goods_id, item);
