@@ -100,6 +100,7 @@ int main(void)
             case 2:
                 printf("输入要修改记录的 ID：");
                 read_line(item.goods_id, 30);
+                item = read_goods_info();
                 change_item(goodsList, item.goods_id, item);
                 break;
             case 3:
@@ -200,7 +201,6 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
     {
         case 0:
             //尾插法插入新商品
-            /* 补充代码*/
             for (;p != NULL;p = p->next) {
                 if (p->next == NULL) {
                     temp->data = goodsInfo;
@@ -212,6 +212,7 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
         case 1:
             //头插法插入新商品
             /* 补充代码*/
+            printf("DEBUG");
             temp->data = goodsInfo;
             temp->next = pre->next;
             pre->next = temp;
@@ -274,13 +275,12 @@ GoodsList* search_item(GoodsList *L, char* goods_id)
     /* 补充代码*/
     for(;p!=NULL;p=p->next)
     {
-        if(p->data.goods_id==goods_id)
+        if(strcmp(p->data.goods_id, goods_id)==0)
         {
             return p;
         }
     }
-    printf("商品不存在!\n");
-    return NULL;      //目前不知道这里要return什么回去，等调用函数时再分析
+    return p;
 }
 
 
@@ -290,15 +290,13 @@ GoodsList* search_item(GoodsList *L, char* goods_id)
 bool change_item(GoodsList *L, char* goods_id, GoodsInfo new_info)
 {
     GoodsList *p = L->next;
-    GoodsList *ptarget = search_item(L, goods_id);
-    if(ptarget!=NULL)
-    {
-        ptarget->data=read_goods_info();
-        return true;
-    }
-    else
-    {
-        return false;
+    for (;p != NULL ; p = p->next) {
+        if (strcmp(p->data.goods_id, goods_id) == 0){
+            p->data = new_info;
+            return true;
+        }
+        else
+            return false;
     }
 }
 
@@ -307,7 +305,7 @@ bool change_item(GoodsList *L, char* goods_id, GoodsInfo new_info)
 void output_one_item(GoodsList *p)
 {
     printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    printf("ID:%-10s 商品名称:%-10s 商品价格:%-10d 商品折扣:%-10s 商品数量:%-10d 商品余量:%-10d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
+    printf("ID:%-s\t 商品名称:%s\t 商品价格:%d\t 商品折扣:%s\t 商品数量:%d\t 商品余量:%d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
     printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
 }
@@ -325,7 +323,7 @@ void output_all_items(GoodsList *L)
         for (; p != NULL ; p = p -> next)
         {
             printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-            printf("ID:%-10s 商品名称:%-10s 商品价格:%-10d 商品折扣:%-10s 商品数量:%-10d 商品余量:%-10d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
+            printf("ID:%-s\t 商品名称:%s\t 商品价格:%d\t 商品折扣:%s\t 商品数量:%d\t 商品余量:%d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
         }
         printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
@@ -396,7 +394,7 @@ int save_to_file(GoodsList *L)
  * bubble_sort
  **********************************************************/
 void bubble_sort(GoodsList *L) {
-    GoodsList *p,*t,*prev;
+    GoodsList *p;
     GoodsInfo temp;
     int n = CurrentCnt;
     int i, j;
@@ -405,17 +403,13 @@ void bubble_sort(GoodsList *L) {
         printf("当前链表中没有商品\n");
     for (j = 1; j < n; ++j) {
         p = L->next;
-        prev=L;
         for (i = 0; i < n - j; ++i) {
             if (p->data.goods_price > p->next->data.goods_price) {
-                t=prev;
-                prev->next=p->next;
-                p->next=p->next->next;
-                p->next->next=t->next;
-                free(t);
+                temp = p -> data;
+                p->data = p->next->data;
+                p->next->data = temp;
             }
             p = p->next;
-            prev=prev->next;
         }
     }
 }
@@ -427,7 +421,7 @@ void bubble_sort(GoodsList *L) {
 GoodsInfo read_goods_info()
 {
     GoodsInfo goodsInfo;
-    printf("输入你要插入的商品信息：\n");
+    printf("输入商品信息：\n");
     printf("商品ID：");
     read_line(goodsInfo.goods_id, 30);
     printf("商品名称：");
