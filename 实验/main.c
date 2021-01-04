@@ -105,10 +105,11 @@ int main(void)
                 break;
             case 3:
                 item = read_goods_info();
-                int pos;
+                int b = 0;
+
                 printf("输入数字表明你要插入的商品位置：0.商品列表尾部 1.商品列表头部 i.商品列表中间第i号位置\n");
-                scanf("%d", &pos);
-                insert_item(goodsList, item, pos);
+                printf("debug");
+                insert_item(goodsList, item, b);
                 break;
             case 4:
                 printf("输入要删除记录的 ID：");
@@ -201,8 +202,10 @@ bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
     {
         case 0:
             //尾插法插入新商品
+            printf("W-874");
             for (;p != NULL;p = p->next) {
                 if (p->next == NULL) {
+                    printf("debug");
                     temp->data = goodsInfo;
                     temp->next = NULL;
                     p->next=temp;
@@ -293,13 +296,11 @@ bool change_item(GoodsList *L, char* goods_id, GoodsInfo new_info)
     for (;p != NULL ; p = p->next) {
         if (strcmp(p->data.goods_id, goods_id) == 0){
             p->data = new_info;
-            return true;
-        }
-        else
-            return false;
-    }
-}
 
+        }
+    }
+    return true;
+}
 
 
 void output_one_item(GoodsList *p)
