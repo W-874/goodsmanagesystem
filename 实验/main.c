@@ -187,65 +187,47 @@ void init_list(GoodsList** L)
 /**********************************************************
  * insert_item
  **********************************************************/
-bool insert_item(GoodsList *L, GoodsInfo goodsInfo, int choice)
+bool insert_item(GoodsList* L, GoodsInfo goodsInfo, int choice)
 {
-    GoodsList *temp;
-    GoodsList *pre = L, *p = L->next;
-    temp = malloc(sizeof(GoodsList));
+    GoodsList* tempNode;
     int i;
-    if (CurrentCnt >= 100)
-    {
-        printf("信息库已满，要插入请先删除一定量的商品数据!\n");
+    GoodsList* newNode = malloc(sizeof(GoodsList));
+    if (newNode == NULL)
         return false;
-    }
-    if (temp == NULL) {
-        return false;
-    }
-    temp -> data = goodsInfo;
-    temp -> next = NULL;
-    switch (choice)
-    {
+    newNode->data = goodsInfo;
+    newNode->next = NULL;
+    tempNode = L;
+
+    switch (choice) {
         case 0:
-            //尾插法插入新商品
-            if (pre == NULL)
-                return false;
-            else {
-                for (; p != NULL; p = p->next) {
-                    if (p->next == NULL) {
-                        p->next = temp;
-                        CurrentCnt++;
-                    }
-                }
-            }
-            return true;
-        case 1:
-            //头插法插入新商品
-            /* 补充代码*/
-            temp->data = goodsInfo;
-            temp->next = pre->next;
-            pre->next = temp;
-            return true;
-        default:
-            //中间i号位置插入新商品，例如：输入3，应该在第二个节点后插入新节点
-            // CurrentCnt 改为 CurrentCnt+1，因为当 CurrentCnt 为2时，链表中有两个记录，
-            // 此时输入3，即 choice为 3，表示在第二条记录后插入数据，新记录成为第3条数据
-            if (choice <= CurrentCnt+1 && choice > 0)
-            {
-                /* 补充代码*/
-                i = choice - 1;
-                for (int j = 1; j < i; ++j) {
-                    p = p->next;
-                }
-                temp->data = goodsInfo;
-                temp->next = p->next;
-                p->next=temp;
+            if (tempNode == NULL) {
+                L->data = goodsInfo;
+                CurrentCnt++;
                 return true;
             }
-            else
-            {
-                printf("输入的位置超出当前商品列表范围\n");
-                return false;
+            while (tempNode->next != NULL) {
+                tempNode = tempNode->next;
             }
+            tempNode->next = newNode;
+            CurrentCnt++;
+            return true;
+        case 1:
+            newNode->next = L->next;
+            L->next = newNode;
+            CurrentCnt++;
+            return true;
+        default:
+            for (i = 1; i < choice; ++i) {
+                if (tempNode == NULL)
+                    return false;
+                tempNode = tempNode->next;
+            }
+            if (tempNode == NULL)
+                return false;
+            newNode->next = tempNode->next;
+            tempNode->next = newNode;
+            CurrentCnt++;
+            return true;
     }
 }
 
@@ -278,17 +260,25 @@ bool delete_item(GoodsList *L, char* goods_id) {
 /**********************************************************
  * search_item
  **********************************************************/
-GoodsList* search_item(GoodsList *L, char* goods_id)
+GoodsList* search_item(GoodsList* L, char* goods_id)
 {
-    GoodsList *p = L->next;
-    /* 补充代码*/
-    for(;p!=NULL;p=p->next)
-    {
-        if(strcmp(p->data.goods_id, goods_id)==0)
-        {
-            return p;
+    if (L == NULL) {
+        printf("传入了一个空链表进来，无法查找");
+        return NULL;
+    }
+    if (goods_id == NULL) {
+        printf("传入错误");
+        return NULL;
+    }
+    GoodsList* p = L;
+    while ((strcmp(p->data.goods_id, goods_id) != 0)) {
+        p = p->next;
+        if (p == NULL) {
+            printf("\n不存在这个id！\n");
+            return NULL;
         }
     }
+
     return p;
 }
 
@@ -299,16 +289,12 @@ GoodsList* search_item(GoodsList *L, char* goods_id)
 bool change_item(GoodsList* L, char* goods_id, GoodsInfo new_info)
 {
     GoodsList* p = L->next;
-
-    for (; p != NULL; p = p->next) {
-        if (strcmp(p->data.goods_id, goods_id) == 0) {
-            p->data = new_info;
-            return true;
-        }
-    }
-    if (p != NULL) {
+    GoodsList* ptarget = search_item(L, goods_id);
+    if (ptarget == NULL) {
         return false;
     }
+    ptarget->data = new_info;
+    return true;
 }
 
 void output_one_item(GoodsList* p)
@@ -317,14 +303,13 @@ void output_one_item(GoodsList* p)
         printf("error");
         return;
     }
-    printf("discount:%s\n", p->data.goods_discount);
-    printf("id:%s\n", p->data.goods_id);
-    printf("name:%s\n", p->data.goods_name);
-    printf("remain:%d\n", p->data.goods_remain);
-    printf("price:%d\n", p->data.goods_price);
+    printf("discount:%s\t", p->data.goods_discount);
+    printf("id:%s\t", p->data.goods_id);
+    printf("name:%s\t", p->data.goods_name);
+    printf("remain:%d\t", p->data.goods_remain);
+    printf("price:%d\t", p->data.goods_price);
     printf("amount:%d\n", p->data.goods_amount);
 
-    /* 补充代码*/
 }
 
 
