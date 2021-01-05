@@ -303,12 +303,9 @@ void output_one_item(GoodsList* p)
         printf("error");
         return;
     }
-    printf("discount:%s\t", p->data.goods_discount);
-    printf("id:%s\t", p->data.goods_id);
-    printf("name:%s\t", p->data.goods_name);
-    printf("remain:%d\t", p->data.goods_remain);
-    printf("price:%d\t", p->data.goods_price);
-    printf("amount:%d\n", p->data.goods_amount);
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("ID:%-s\t 商品名称:%s\t 商品价格:%d\t 商品折扣:%s\t 商品数量:%d\t 商品余量:%d\n",p->data.goods_id, p->data.goods_name, p->data.goods_price, p->data.goods_discount, p->data.goods_amount, p->data.goods_remain);
+    printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
 }
 
